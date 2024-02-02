@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.smartlab_tryanina.navigation.Navigation
 import com.example.smartlab_tryanina.screen.LogIn
 import com.example.smartlab_tryanina.ui.theme.Smartlab_tryaninaTheme
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LogIn()
+                    Navigation()
                 }
             }
         }
