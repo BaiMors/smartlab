@@ -20,7 +20,7 @@ fun Navigation() {
 //            SplashScreen(navController)
 //        }
         composable("logInScreen"){
-            LogIn()
+            LogIn(navController)
         }
     }
 }
