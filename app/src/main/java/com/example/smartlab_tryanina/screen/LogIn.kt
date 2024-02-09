@@ -1,6 +1,9 @@
 package com.example.smartlab_tryanina.screen
 
+//fonts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,10 +32,9 @@ import androidx.navigation.NavHostController
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-//@Preview
 @Composable
 fun LogIn (navHost: NavHostController) {
-    val email = remember{mutableStateOf("example@mail.com")}
+    val email = remember{mutableStateOf("")}
     Column (
 
         modifier = Modifier.run {
@@ -43,6 +45,7 @@ fun LogIn (navHost: NavHostController) {
     )
     {
         Text(
+            //fontFamily = GoogleFont("SF Pro Display"),
             text = "✋ Добро пожаловать!",
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
@@ -83,7 +86,6 @@ fun LogIn (navHost: NavHostController) {
             ),
             shape = RoundedCornerShape(10.dp),
 
-            //placeholder = "example@mail.com",
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
@@ -91,7 +93,10 @@ fun LogIn (navHost: NavHostController) {
                 .padding(start = 22.dp)
                 .padding(top = 7.dp)
                 .height(52.dp)
-                .clickable { email.value = "" },
+                .border(width = 1.dp, color = Color(0xFFEBEBEB), shape = RoundedCornerShape(10.dp))
+                .clickable{  },
+
+            placeholder = { Text(text = "example@mail.com") },
             onValueChange = {newEmail -> email.value = newEmail}
         )
         Button(
@@ -101,6 +106,7 @@ fun LogIn (navHost: NavHostController) {
                 .fillMaxWidth()
                 .height(60.dp),
             shape = RoundedCornerShape(10.dp),
+
             colors = ButtonDefaults.buttonColors(Color(0xFFC9D4FB))
         ) {
             Text(
@@ -118,21 +124,30 @@ fun LogIn (navHost: NavHostController) {
         ) {
             Text(
                 text = "Или войдите с помощью",
+                fontSize = 15.sp,
+                color = Color(0xFF939396),
+                modifier = Modifier.padding(bottom = 15.dp)
+            )
 
-                )
             Button(
                 onClick = { /*TODO*/ },
                 modifier = Modifier
-                    //.offset(x = 30.dp, y = 50.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(bottom = 45.dp, start = 22.dp, end = 22.dp)
+                    .height(60.dp),
+                shape = RoundedCornerShape(10.dp),
+                border = BorderStroke(width = 1.dp, color = Color(0xFFEBEBEB)),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
+                    containerColor = Color.White),
 
 
-                ),
+                ) {
+                Text(
+                    text = "Войти с Яндекс",
+                    color = Color(0xFF000000),
+                    fontSize = 17.sp
 
-            ) {
-                Text(text = "Войти с Яндекс", color = Color.Black)
+                )
             }
         }
 
