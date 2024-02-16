@@ -35,6 +35,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun LogIn (navHost: NavHostController) {
     val email = remember{mutableStateOf("")}
+    var enabled = remember{mutableStateOf(false)}
     Column (
 
         modifier = Modifier.run {
@@ -75,13 +76,14 @@ fun LogIn (navHost: NavHostController) {
                 .padding(start = 22.dp)
                 .padding(top = 65.dp)
         )
+        Column ()
+        {
         TextField(
             value = email.value,
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = Color(0xFFF5F5F9),
                 focusedIndicatorColor = Color(0xEBEBEB),
                 unfocusedIndicatorColor = Color(0xEBEBEB),
-                //disabledSupportingTextColor = Color(0xFF7E7E9A),
                 unfocusedTextColor = Color(0xFF7E7E9A)
             ),
             shape = RoundedCornerShape(10.dp),
@@ -94,26 +96,34 @@ fun LogIn (navHost: NavHostController) {
                 .padding(top = 7.dp)
                 .height(52.dp)
                 .border(width = 1.dp, color = Color(0xFFEBEBEB), shape = RoundedCornerShape(10.dp))
-                .clickable{  },
+                .clickable { },
+
+            singleLine = true,
 
             placeholder = { Text(text = "example@mail.com") },
             onValueChange = {newEmail -> email.value = newEmail}
         )
+            enabled.value = email.value.isNotEmpty()
+           var color = if(enabled.value) ButtonDefaults.buttonColors(Color(0xFF1A6FEE))
+            else ButtonDefaults.buttonColors(Color(0xFFC9D4FB))
         Button(
-            onClick = { /*TODO*/ },
+
+            onClick = { navHost.navigate("CodeEmail") },
             modifier = Modifier
                 .padding(22.dp)
                 .fillMaxWidth()
                 .height(60.dp),
             shape = RoundedCornerShape(10.dp),
+            colors = color
 
-            colors = ButtonDefaults.buttonColors(Color(0xFFC9D4FB))
-        ) {
+          ) {
             Text(
                 text = "Далее",
                 fontSize = 17.sp
-            )
+            ) }
         }
+
+
         Column (
             modifier = Modifier
                 .fillMaxWidth()
