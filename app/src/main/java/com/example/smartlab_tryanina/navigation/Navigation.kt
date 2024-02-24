@@ -12,7 +12,7 @@ import com.example.smartlab_tryanina.screen.LogIn
 fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController,//контроллер реагирующий и отвечающий за перемещения
-        startDestination = "CodeEmail")
+        startDestination = "logInScreen")
     {
         //Для каждой страницы задается route - для дальнейшего обращения к ней
         //и указывается метод для запуска с переданными параметрами

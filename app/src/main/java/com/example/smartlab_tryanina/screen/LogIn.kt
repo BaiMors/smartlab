@@ -1,6 +1,9 @@
 package com.example.smartlab_tryanina.screen
 
 //fonts
+import android.annotation.SuppressLint
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,22 +23,35 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.smartlab_tryanina.DataModel
+import com.example.smartlab_tryanina.RetrofitAPI
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LogIn (navHost: NavHostController) {
     val email = remember{mutableStateOf("")}
     var enabled = remember{mutableStateOf(false)}
+    val mContext = LocalContext.current
+    val response = remember{mutableStateOf("")}
+
     Column (
 
         modifier = Modifier.run {
@@ -106,9 +122,13 @@ fun LogIn (navHost: NavHostController) {
             enabled.value = email.value.isNotEmpty()
            var color = if(enabled.value) ButtonDefaults.buttonColors(Color(0xFF1A6FEE))
             else ButtonDefaults.buttonColors(Color(0xFFC9D4FB))
-        Button(
 
-            onClick = { navHost.navigate("CodeEmail") },
+
+        Button(
+            onClick = {
+                navHost.navigate("CodeEmail")
+                postDataUsingRetrofit(mContext, email, response)
+                      },
             modifier = Modifier
                 .padding(22.dp)
                 .fillMaxWidth()
@@ -162,4 +182,47 @@ fun LogIn (navHost: NavHostController) {
         }
 
     }
+
+}
+
+private fun postDataUsingRetrofit(
+    ctx: Context,
+    email: MutableState<String>,
+    result: MutableState<String>
+) {
+    var url = "https://iis.ngknn.ru/NGKNN/МамшеваЮС/MedicMadlab/"
+    // on below line we are creating a retrofit
+    // builder and passing our base url
+    val retrofit = Retrofit.Builder()
+        .baseUrl(url)
+        // as we are sending data in json format so
+        // we have to add Gson converter factory
+        .addConverterFactory(GsonConverterFactory.create())
+        // at last we are building our retrofit builder.
+        .build()
+    // below the line is to create an instance for our retrofit api class.
+    val retrofitAPI = retrofit.create(RetrofitAPI::class.java)
+    // passing data from our text fields to our model class.
+    val dataModel = DataModel(email.value)
+    // calling a method to create an update and passing our model class.
+    val call: Call<DataModel?>? = retrofitAPI.postData(dataModel)
+    // on below line we are executing our method.
+    call!!.enqueue(object : Callback<DataModel?> {
+        override fun onResponse(call: Call<DataModel?>?, response: Response<DataModel?>) {
+            // this method is called when we get response from our api.
+            Toast.makeText(ctx, "Data posted to API", Toast.LENGTH_SHORT).show()
+            // we are getting a response from our body and
+            // passing it to our model class.
+            val model: DataModel? = response.body()
+            // on below line we are getting our data from model class
+            // and adding it to our string.
+
+        }
+
+        override fun onFailure(call: Call<DataModel?>?, t: Throwable) {
+            // we get error response from API.
+            Toast.makeText(ctx, "Data NOT posted to API", Toast.LENGTH_SHORT).show()
+        }
+    })
+
 }
