@@ -1,6 +1,5 @@
 package com.example.smartlab_tryanina.screen
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -42,12 +41,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.smartlab_tryanina.RetrofitAPI
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,7 +59,6 @@ fun CodeEmail(navHost: NavHostController) {
         Modifier
             .background(Color.White)
             .fillMaxSize(),
-
     ) {
 
 
@@ -240,4 +232,6 @@ fun CodeEmail(navHost: NavHostController) {
         }
 
     }
+//    val str = num1 + num2 + num3 + num4
+//    if(num4.isNotEmpty() and str = ) navHost.navigate("CreatePassword")
 }

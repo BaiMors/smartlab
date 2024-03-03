@@ -2,8 +2,6 @@ package com.example.smartlab_tryanina.screen
 
 //fonts
 import android.annotation.SuppressLint
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,19 +31,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.smartlab_tryanina.DataModel
-import com.example.smartlab_tryanina.RetrofitAPI
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.smartlab_tryanina.viewModel.MainViewModel
 
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LogIn (navHost: NavHostController) {
+fun LogIn (navHost: NavHostController, viewModel: MainViewModel) {
     val email = remember{mutableStateOf("")}
     var enabled = remember{mutableStateOf(false)}
     val mContext = LocalContext.current
@@ -127,7 +118,7 @@ fun LogIn (navHost: NavHostController) {
         Button(
             onClick = {
                 navHost.navigate("CodeEmail")
-                postDataUsingRetrofit(mContext, email, response)
+                viewModel.sendCodeToEmail2(email.value)
                       },
             modifier = Modifier
                 .padding(22.dp)
@@ -182,47 +173,5 @@ fun LogIn (navHost: NavHostController) {
         }
 
     }
-
-}
-
-private fun postDataUsingRetrofit(
-    ctx: Context,
-    email: MutableState<String>,
-    result: MutableState<String>
-) {
-    var url = "https://iis.ngknn.ru/NGKNN/МамшеваЮС/MedicMadlab/"
-    // on below line we are creating a retrofit
-    // builder and passing our base url
-    val retrofit = Retrofit.Builder()
-        .baseUrl(url)
-        // as we are sending data in json format so
-        // we have to add Gson converter factory
-        .addConverterFactory(GsonConverterFactory.create())
-        // at last we are building our retrofit builder.
-        .build()
-    // below the line is to create an instance for our retrofit api class.
-    val retrofitAPI = retrofit.create(RetrofitAPI::class.java)
-    // passing data from our text fields to our model class.
-    val dataModel = DataModel(email.value)
-    // calling a method to create an update and passing our model class.
-    val call: Call<DataModel?>? = retrofitAPI.postData(dataModel)
-    // on below line we are executing our method.
-    call!!.enqueue(object : Callback<DataModel?> {
-        override fun onResponse(call: Call<DataModel?>?, response: Response<DataModel?>) {
-            // this method is called when we get response from our api.
-            Toast.makeText(ctx, "Data posted to API", Toast.LENGTH_SHORT).show()
-            // we are getting a response from our body and
-            // passing it to our model class.
-            val model: DataModel? = response.body()
-            // on below line we are getting our data from model class
-            // and adding it to our string.
-
-        }
-
-        override fun onFailure(call: Call<DataModel?>?, t: Throwable) {
-            // we get error response from API.
-            Toast.makeText(ctx, "Data NOT posted to API", Toast.LENGTH_SHORT).show()
-        }
-    })
 
 }
