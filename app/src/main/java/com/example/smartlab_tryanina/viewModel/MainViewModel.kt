@@ -7,19 +7,13 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-/** ViewModel - один из наиболее важных классов компонентов архитектуры Android Jetpack,
-поддерживающих данные для компонентов пользовательского интерфейса.
-Его назначение - хранить данные, связанные с пользовательским интерфейсом, и управлять ими.
-Более того, его основная функция заключается в поддержании целостности и позволяет обслуживать данные во время изменений
-конфигурации, таких как поворот экрана.
-Любое изменение конфигурации на устройствах Android приводит к воссозданию всей активности приложения.*/
 class MainViewModel(private val repository: Repository): ViewModel() {
     /** Каналы (Channel) позволяют передавать потоки данных*/
     private val _showErrorToastChannel = Channel<Boolean>()
-    val showErrorToastChannel = _showErrorToastChannel.receiveAsFlow()
+    val showErrorToastChannel = _showErrorToastChannel.receiveAsFlow() //получаем как поток значение того, успешно ли подключилось/отправило/получило данные??? зачем....
 
 
-    fun sendCodeToEmail2(email:String)
+    fun sendCodeToEmail2(email:String) //зачем нам второй код на емаил??????
     {
         viewModelScope.launch {
             repository.sendCodeToEmail(email).collect{

@@ -18,10 +18,10 @@ import com.example.smartlab_tryanina.viewModel.MainViewModel
 
 class MainActivity : ComponentActivity() {
     //Создание провайдера ViewModel
-    //тчо за провайдеры вообще..........
-    private val viewModelSmart by viewModels<MainViewModel>(factoryProducer = {
+    //тчо за провайдеры вообще.......... (написала в ретрофит инстанс)
+    private val viewModelSmart by viewModels<MainViewModel>(factoryProducer = { //что за продюсер......
         object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T { //что значит эта запись....
                 return MainViewModel(RepositoryImpl(RetrofitInstance.apiSmartLab))
                         as T
             }
@@ -32,7 +32,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Smartlab_tryaninaTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
