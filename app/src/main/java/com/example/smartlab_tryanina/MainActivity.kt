@@ -20,13 +20,14 @@ class MainActivity : ComponentActivity() {
     //Создание провайдера ViewModel
     //тчо за провайдеры вообще.......... (написала в ретрофит инстанс)
     private val viewModelSmart by viewModels<MainViewModel>(factoryProducer = { //что за продюсер......
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T { //что значит эта запись....
+        object : ViewModelProvider.Factory { //тут типа тоже надо просто понять и простить что так "надо" писать? как с той фабрикой по конвертации json?
+            override fun <T : ViewModel> create(modelClass: Class<T>): T { //как мы переопределяем viewmodel как функцию...
                 return MainViewModel(RepositoryImpl(RetrofitInstance.apiSmartLab))
                         as T
             }
         }
     })
+    //factoryProducer - определение, что за такое наш провайдер/посредник между сервером и ui. в этом конструкторе есть метод, который мы переопределяем, чтобы он возвращал нашу viewmodel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Navigation()
+                    Navigation(viewModelSmart)
                 }
             }
         }

@@ -7,17 +7,20 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: Repository): ViewModel() {
+class MainViewModel(private val repository: Repository): ViewModel() { //RepositoryImpl возвращает поток (какой бы то ни было?) и что мы с ним дальше делаем...
     /** Каналы (Channel) позволяют передавать потоки данных*/
     private val _showErrorToastChannel = Channel<Boolean>()
     val showErrorToastChannel = _showErrorToastChannel.receiveAsFlow() //получаем как поток значение того, успешно ли подключилось/отправило/получило данные??? зачем....
 
+    //подписываемся на поток. что-то в нем поменялось, то отсылаем это в переменную
 
-    fun sendCodeToEmail2(email:String) //зачем нам второй код на емаил??????
+    //
+    fun sendCodeToEmail2(email:String) //зачем нам второй код на емаил?????? типа один сетевой а другой на клиенте или как....
     {
-        viewModelScope.launch {
+        viewModelScope.launch {//запускаем поток, в котором потом вызываем поточную функцию из Repository
+            //emit ранее собрал/обернул данные в коллекцию, которую мы здесь разворачиваем
             repository.sendCodeToEmail(email).collect{
-                when(it) {
+                when(it) { //то, что мы вывернули из emit-а, ответ сервера
                     /** Instanceof (is) - это оператор на языке java, здесь, в Kotlin, мы использовали is и !
                     это ключевые слова для выполнения операций, таких как instanceof,
                     то есть тип свойства доступен или нет, это функция, подобная способу проверки типа,
@@ -26,8 +29,9 @@ class MainViewModel(private val repository: Repository): ViewModel() {
                     is com.example.smartlab_tryanina.api.Result.Error -> {
                         _showErrorToastChannel.send(true)
                     }
+
                     is com.example.smartlab_tryanina.api.Result.Success -> {
-                        _showErrorToastChannel.send(false)
+                        _showErrorToastChannel.send(false) //вообще типа если все хорошо то мы переходим на следующий экран и просто продолжаем
                     }
                 }
             }

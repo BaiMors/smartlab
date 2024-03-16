@@ -12,13 +12,13 @@ import com.example.smartlab_tryanina.viewModel.MainViewModel
 
 /*Класс для перемещения по страницам*/
 @Composable
-fun Navigation() {
+fun Navigation(viewModel: MainViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController,//контроллер реагирующий и отвечающий за перемещения
         startDestination = "logInScreen")
     {
         composable("logInScreen"){
-            LogIn(navController, MainViewModel(RepositoryImpl(RetrofitInstance.apiSmartLab)))
+            LogIn(navController, viewModel)
         }
         composable("CodeEmail"){
             CodeEmail(navController)
