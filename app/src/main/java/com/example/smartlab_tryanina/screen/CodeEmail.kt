@@ -41,10 +41,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.smartlab_tryanina.viewModel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CodeEmail(navHost: NavHostController) {
+fun CodeEmail(navHost: NavHostController, viewModel: MainViewModel) {
     val (num1, setn1) = remember{mutableStateOf("")}
     val (num2, setn2) = remember{mutableStateOf("")}
     val (num3, setn3) = remember{mutableStateOf("")}
@@ -232,6 +233,7 @@ fun CodeEmail(navHost: NavHostController) {
         }
 
     }
-//    val str = num1 + num2 + num3 + num4
+    val str = num1 + num2 + num3 + num4
+    Toast.makeText(mContext, str, Toast.LENGTH_SHORT).show()
 //    if(num4.isNotEmpty() and str = ) navHost.navigate("CreatePassword")
 }

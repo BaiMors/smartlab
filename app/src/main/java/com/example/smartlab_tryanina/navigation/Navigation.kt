@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.smartlab_tryanina.api.RepositoryImpl
 import com.example.smartlab_tryanina.api.RetrofitInstance
 import com.example.smartlab_tryanina.screen.CodeEmail
+import com.example.smartlab_tryanina.screen.CreatePassword
 import com.example.smartlab_tryanina.screen.LogIn
 import com.example.smartlab_tryanina.viewModel.MainViewModel
 
@@ -21,7 +22,10 @@ fun Navigation(viewModel: MainViewModel) {
             LogIn(navController, viewModel)
         }
         composable("CodeEmail"){
-            CodeEmail(navController)
+            CodeEmail(navController, viewModel)
+        }
+        composable("CreatePassword"){
+            CreatePassword(navController, viewModel)
         }
     }
 }
