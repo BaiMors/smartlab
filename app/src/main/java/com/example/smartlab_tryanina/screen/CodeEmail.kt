@@ -233,7 +233,8 @@ fun CodeEmail(navHost: NavHostController, viewModel: MainViewModel) {
         }
 
     }
-    val str = num1 + num2 + num3 + num4
+    val str = StringBuilder()
+    str.append(num1).append(num2).append(num3).append(num4)
     Toast.makeText(mContext, str, Toast.LENGTH_SHORT).show()
 //    if(num4.isNotEmpty() and str = ) navHost.navigate("CreatePassword")
 }

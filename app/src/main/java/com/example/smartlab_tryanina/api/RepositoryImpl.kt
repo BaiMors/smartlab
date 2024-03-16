@@ -33,6 +33,28 @@ class RepositoryImpl(
             emit(Result.Success(request)) //типа если все хорошо и мы не поймали ни одного исключения, то результат выполнения функции из try мы отсылаем в класс success из Result.kt и функция отправки кода продолжает выполнение
         }
     }
+
+    override suspend fun checkEmail(email: String, code: String): Flow<Result<String>>{
+        return flow {
+            val request = try {
+                api.checkEmail(email, code)
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+                emit(Result.Error(message = "Don't find email"))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Result.Error(message = "Don't find email")) //собирает все данные с потока
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Result.Error(message = "Don't find email"))
+                return@flow
+            }
+            emit(Result.Success(request)) //типа если все хорошо и мы не поймали ни одного исключения, то результат выполнения функции из try мы отсылаем в класс success из Result.kt и функция отправки кода продолжает выполнение
+        }
+    }
 }
 
 //в интерфейсах объявляются методы для чего-либо, а реализуются (типа вызываются?) здесь (типа в try-е ок да)
