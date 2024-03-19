@@ -4,8 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.smartlab_tryanina.api.RepositoryImpl
-import com.example.smartlab_tryanina.api.RetrofitInstance
 import com.example.smartlab_tryanina.screen.CodeEmail
 import com.example.smartlab_tryanina.screen.CreatePassword
 import com.example.smartlab_tryanina.screen.LogIn

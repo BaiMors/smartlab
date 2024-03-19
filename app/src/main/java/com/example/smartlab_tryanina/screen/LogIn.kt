@@ -37,7 +37,7 @@ import com.example.smartlab_tryanina.viewModel.MainViewModel
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LogIn (navHost: NavHostController, viewModel: MainViewModel) {
+fun LogIn (navHost: NavHostController, viewModel: MainViewModel): String {
     val email = remember{mutableStateOf("")}
     var enabled = remember{mutableStateOf(false)}
     val mContext = LocalContext.current
@@ -174,4 +174,5 @@ fun LogIn (navHost: NavHostController, viewModel: MainViewModel) {
 
     }
 
+    return email.value
 }
