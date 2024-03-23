@@ -273,28 +273,11 @@ fun CodeEmail(navHost: NavHostController, viewModel: MainViewModel) {
 
     val str = num1 + num2 + num3 + num4
     /*val b = LogIn(navHost = navHost, viewModel = viewModel)*/
+
+    viewModel.checkEmail2(sEm, str)
 //ardaismine@gmail.com
-    if (num4.isNotEmpty())
-    {
-        viewModel.checkEmail2(sEm, str).toString()
-        Toast.makeText(
-            mContext,
-            viewModel.showErrorToastChannel.toString(),
-            Toast.LENGTH_SHORT
-        ).show()
-        if (viewModel.checkEmail2(sEm, str).toString() != "Not found email") {
-            navHost.navigate("CreatePassword")
-        }
-
-
+    if (num4.isNotEmpty()) {
+        navHost.navigate("CreatePassword")
     }
 
-/*    if ( && num4.isNotEmpty()) {
-
-    }*/
 }
-
-/*    val str = StringBuilder()
-    str.append(num1).append(num2).append(num3).append(num4)
-    Toast.makeText(mContext, str, Toast.LENGTH_SHORT).show()*/
-//    if(num4.isNotEmpty() and str = ) navHost.navigate("CreatePassword")

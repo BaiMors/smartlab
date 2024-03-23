@@ -14,7 +14,7 @@ import com.example.smartlab_tryanina.viewModel.MainViewModel
 fun Navigation(viewModel: MainViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController,//контроллер реагирующий и отвечающий за перемещения
-        startDestination = "logInScreen")
+        startDestination = "CreatePassword")
     {
         composable("logInScreen"){
             LogIn(navController, viewModel)
