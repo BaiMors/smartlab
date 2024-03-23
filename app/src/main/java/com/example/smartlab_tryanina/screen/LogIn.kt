@@ -33,11 +33,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.smartlab_tryanina.viewModel.MainViewModel
 
+public var sEm = ""
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LogIn (navHost: NavHostController, viewModel: MainViewModel): String {
+fun LogIn (navHost: NavHostController, viewModel: MainViewModel) {
     val email = remember{mutableStateOf("")}
     var enabled = remember{mutableStateOf(false)}
     val mContext = LocalContext.current
@@ -174,5 +175,6 @@ fun LogIn (navHost: NavHostController, viewModel: MainViewModel): String {
 
     }
 
-    return email.value
+    sEm = email.value
+   // return email.value
 }

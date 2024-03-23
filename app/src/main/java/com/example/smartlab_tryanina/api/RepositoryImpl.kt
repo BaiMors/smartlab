@@ -50,6 +50,7 @@ class RepositoryImpl(
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(Result.Error(message = "Don't find email"))
+
                 return@flow
             }
             emit(Result.Success(request)) //типа если все хорошо и мы не поймали ни одного исключения, то результат выполнения функции из try мы отсылаем в класс success из Result.kt и функция отправки кода продолжает выполнение

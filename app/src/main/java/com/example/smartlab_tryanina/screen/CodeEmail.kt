@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.smartlab_tryanina.viewModel.MainViewModel
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CodeEmail(navHost: NavHostController, viewModel: MainViewModel) {
@@ -269,10 +270,28 @@ fun CodeEmail(navHost: NavHostController, viewModel: MainViewModel) {
 
     }
 
+
     val str = num1 + num2 + num3 + num4
-    if (num4.isNotEmpty()) {
-        navHost.navigate("CreatePassword")
+    /*val b = LogIn(navHost = navHost, viewModel = viewModel)*/
+//ardaismine@gmail.com
+    if (num4.isNotEmpty())
+    {
+        viewModel.checkEmail2(sEm, str).toString()
+        Toast.makeText(
+            mContext,
+            viewModel.showErrorToastChannel.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+        if (viewModel.checkEmail2(sEm, str).toString() != "Not found email") {
+            navHost.navigate("CreatePassword")
+        }
+
+
     }
+
+/*    if ( && num4.isNotEmpty()) {
+
+    }*/
 }
 
 /*    val str = StringBuilder()
