@@ -2,6 +2,7 @@ package com.example.smartlab_tryanina.api
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
+import com.example.smartlab_tryanina.models.NewsStruct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -45,7 +46,7 @@ class RepositoryImpl(
                 return@flow
             } catch (e: HttpException) {
                 e.printStackTrace()
-                emit(Result.Error(message = "Don't find email")) //собирает все данные с потока
+                emit(Result.Error(message = "Don't find email"))
                 return@flow
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -53,7 +54,30 @@ class RepositoryImpl(
 
                 return@flow
             }
-            emit(Result.Success(request)) //типа если все хорошо и мы не поймали ни одного исключения, то результат выполнения функции из try мы отсылаем в класс success из Result.kt и функция отправки кода продолжает выполнение
+            emit(Result.Success(request))
+        }
+    }
+
+    override suspend fun getNews(): Flow<Result<NewsStruct>>{
+        return flow {
+            val request = try {
+                api.GetNews()
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+                emit(Result.Error(message = "Don't find news"))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Result.Error(message = "Don't find news"))
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Result.Error(message = "Don't find news"))
+
+                return@flow
+            }
+            emit(Result.Success(request))
         }
     }
 }

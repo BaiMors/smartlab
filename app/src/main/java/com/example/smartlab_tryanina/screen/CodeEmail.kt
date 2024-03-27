@@ -274,10 +274,10 @@ fun CodeEmail(navHost: NavHostController, viewModel: MainViewModel) {
     val str = num1 + num2 + num3 + num4
     /*val b = LogIn(navHost = navHost, viewModel = viewModel)*/
 
-    viewModel.checkEmail2(sEm, str)
+/*    viewModel.checkEmail2(sEm, str)*/
 //ardaismine@gmail.com
     if (num4.isNotEmpty()) {
-        navHost.navigate("CreatePassword")
+        navHost.navigate("AnalysisMain")
     }
 
 }

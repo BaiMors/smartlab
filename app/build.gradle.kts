@@ -59,7 +59,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-
+    implementation ("androidx.activity:activity:1.8.2")
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -71,7 +71,7 @@ dependencies {
 
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
     implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.2")
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.4")
     implementation("com.google.android.gms:play-services-basement:18.3.0")
 
     testImplementation("junit:junit:4.13.2")
@@ -81,6 +81,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
 
 
 
