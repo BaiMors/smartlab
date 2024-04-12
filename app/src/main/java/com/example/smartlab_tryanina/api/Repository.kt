@@ -1,5 +1,6 @@
 package com.example.smartlab_tryanina.api
 
+import com.example.smartlab_tryanina.models.NewsPage
 import com.example.smartlab_tryanina.models.NewsStruct
 import kotlinx.coroutines.flow.Flow
 
@@ -8,6 +9,6 @@ interface Repository {
 
     suspend fun checkEmail(email: String, code: String):Flow<Result<String>>
 
-    suspend fun getNews():Flow<Result<NewsStruct>>
+    suspend fun getNews():Flow<Result<NewsPage>>
 
 }

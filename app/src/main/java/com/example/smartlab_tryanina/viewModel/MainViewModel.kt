@@ -7,6 +7,7 @@ import com.example.smartlab_tryanina.models.ResultNews
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -74,7 +75,7 @@ class MainViewModel(private val repository: Repository): ViewModel() { //Reposit
         }
     }
 
-    fun getNews2() {
+    /*init {
         viewModelScope.launch {
 
             repository.getNews().collect { result ->
@@ -86,11 +87,21 @@ class MainViewModel(private val repository: Repository): ViewModel() { //Reposit
 
                     is com.example.smartlab_tryanina.api.Result.Success -> {
                         result.data?.let { New ->
-                            _toGetNews.update { New.results }
+                            *//*_toGetNews.update { New.results }*//*
                         }
                     }
                 }
             }
         }
+    }*/
+
+    init{
+
     }
+    fun getNews2() =
+        viewModelScope.launch {
+            repository.getNews().onStart {
+                
+            }
+        }
 }

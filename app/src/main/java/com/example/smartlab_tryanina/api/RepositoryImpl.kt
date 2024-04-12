@@ -2,6 +2,7 @@ package com.example.smartlab_tryanina.api
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
+import com.example.smartlab_tryanina.models.NewsPage
 import com.example.smartlab_tryanina.models.NewsStruct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -58,7 +59,7 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun getNews(): Flow<Result<NewsStruct>>{
+    override suspend fun getNews(): Flow<Result<NewsPage>>{
         return flow {
             val request = try {
                 api.GetNews()
@@ -74,7 +75,6 @@ class RepositoryImpl(
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(Result.Error(message = "Don't find news"))
-
                 return@flow
             }
             emit(Result.Success(request))
