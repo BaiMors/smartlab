@@ -345,7 +345,7 @@ fun CreatePassword(navHost: NavHostController, viewModel: MainViewModel) {
                             )
                         }
                     }
-
+//
                 }
                 if (isPressed0 == true) isPressed0 = !isPressed0
                 else isPressed0 = isPressed0
