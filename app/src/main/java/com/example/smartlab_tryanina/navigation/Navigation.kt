@@ -26,7 +26,7 @@ fun Navigation(viewModel: MainViewModel) {
         composable("CreatePassword"){
             CreatePassword(navController, viewModel)
         }
-        composable("AnalysisMain"){
+        composable("CreatePerson"){
             AnalysysMain(navController, viewModel)
         }
     }
